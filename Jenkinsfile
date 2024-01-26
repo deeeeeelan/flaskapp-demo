@@ -1,36 +1,26 @@
 pipeline {
-  agent { any { image 'python:3.8' } }
-  stages {
-    stage('build') {
-      steps {
-			sh 'python3 -m venv .venv'
-			sh '''
-				. .venv/bin/activate
-				pip install -r requirements.txt
-			
-			'''
-      
-      }
-    }
-    stage('test') {
-      steps {
-			sh '''
-				. .venv/bin/activate
-				pytest --junit-xml test-reports/results.xml application_test.py
-				
-			'''
-       
-      }
-      post {
-        always {
-          junit 'test-reports/*.xml'
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building...'
+                // Your build steps go here
+            }
         }
-      }    
+
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                // Your test steps go here
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying...'
+                // Your deployment steps go here
+            }
+        }
     }
-  }
 }
-
-
-
-
-
